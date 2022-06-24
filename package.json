@@ -1,0 +1,10 @@
+{
+  "name": "nextjs-blog",
+  "version": "1.0.0",
+  "author": "Patryk Byszek",
+  "private": "true",
+  "license": "MIT",
+  "workspaces": [
+    "apps/*"
+  ]
+}
