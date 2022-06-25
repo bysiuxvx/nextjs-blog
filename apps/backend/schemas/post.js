@@ -6,7 +6,12 @@ const postSchema = new Schema(
   {
     title: { type: String, required: true },
     text: { type: String, required: true },
-    hashtags: { type: String, required: false },
+    hashtags: [
+      {
+        type: String,
+        required: false,
+      },
+    ],
     createdBy: { type: String, required: true },
     // img:
   },
