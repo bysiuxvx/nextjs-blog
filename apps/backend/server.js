@@ -19,6 +19,10 @@ connection.once("open", () => {
   console.log("MongoDB database connection established successfully.")
 })
 
+const postRouter = require("./routes/posts")
+
+app.use("/posts/", postRouter)
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}!`)
 })
