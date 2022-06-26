@@ -1,9 +1,12 @@
 import { ChakraProvider } from "@chakra-ui/react"
+import Layout from "../components/Layout/Main"
 
-function MyApp({ Component, pageProps }) {
+const MyApp = ({ Component, pageProps }) => {
   return (
     <ChakraProvider>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </ChakraProvider>
   )
 }
