@@ -5,6 +5,15 @@
   "private": "true",
   "license": "MIT",
   "workspaces": [
-    "apps/*"
-  ]
+    "apps/frotnend",
+    "apps/backend"
+  ],
+  "scripts": {
+    "watch-js": "cd apps && cd frontend && yarn dev",
+    "watch-node": "cd apps && cd backend && yarn watch",
+    "start": "concurrently \"yarn watch-node\" \"yarn watch-js\""
+  },
+  "dependencies": {
+    "concurrently": "^7.2.2"
+  }
 }
