@@ -12,11 +12,18 @@ router.route("/").get((req, res) => {
 
 router.route("/add").post((req, res) => {
   const title = req.body.title
+  const shortDescription = req.body.shortDescription
   const text = req.body.text
   const hashtags = req.body.hashtags
   const createdBy = req.body.createdBy
 
-  const newPost = new Post({ title, text, hashtags, createdBy })
+  const newPost = new Post({
+    title,
+    text,
+    hashtags,
+    createdBy,
+    shortDescription,
+  })
 
   newPost
     .save()
@@ -36,9 +43,10 @@ router.route("/:id").delete((req, res) => {
     .catch((err) => res.status(400).json(`Error ${err}.`))
 })
 
-router.route("/update/:id").post((req, res) => {
+router.route("/edit/:id").post((req, res) => {
   Post.findById(req.params.id).then((post) => {
     post.title = req.body.title
+    post.shortDescription = req.body.shortDescription
     post.text = req.body.text
     post.hashtags = req.body.hashtags
     post.createdBy = req.body.createdBy
