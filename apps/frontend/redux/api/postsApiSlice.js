@@ -4,45 +4,47 @@ const apiUrl = process.env.API_URL || "http://localhost:4000"
 
 export const postsApiSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: apiUrl }),
-  tagTypes: "Post",
+  tagTypes: ["Post"],
   endpoints: (builder) => ({
     getPosts: builder.query({
       query: () => "/posts",
-      providesTags: "Post",
+      providesTags: ["Post"],
     }),
     getPostsById: builder.query({
       query: (id) => ({
         url: `posts/${id}`,
-        providesTags: "Post",
+        providesTags: ["Post"],
       }),
     }),
-    createPost: builder.query({
-      query: (post) => ({
+    createPost: builder.mutation({
+      query: (body) => ({
         url: "/posts/add",
         method: "POST",
-        post,
+        body,
       }),
-      invalidatesTags: "Post",
+      invalidatesTags: ["Post"],
     }),
-    deletePost: builder.query({
+    deletePost: builder.mutation({
       query: (id) => ({
         url: `/posts/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: "Post",
+      invalidatesTags: ["Post"],
     }),
-    // editPost: builder.query({
-    //   query: ( body) => ({
-    //     url: `/posts/edit/${body.id}`,
-
-    //   }),
-    // }),
+    editPost: builder.mutation({
+      query: (body) => ({
+        url: `/posts/edit/${body.id}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["Post"],
+    }),
   }),
 })
 
 export const {
   useGetPostsQuery,
   useGetPostsByIdQuery,
-  useCreatePostQuery,
-  useDeletePostQuery,
+  useCreatePostMutation,
+  useDeletePostMutation,
+  useEditPostMutation,
 } = postsApiSlice
