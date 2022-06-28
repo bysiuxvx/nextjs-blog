@@ -2,17 +2,47 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 const apiUrl = process.env.API_URL || "http://localhost:4000"
 
-// Define a service using a base URL and expected endpoints
 export const postsApiSlice = createApi({
-  //   reducerPath: "pokemonApi",
   baseQuery: fetchBaseQuery({ baseUrl: apiUrl }),
+  tagTypes: "Post",
   endpoints: (builder) => ({
     getPosts: builder.query({
       query: () => "/posts",
+      providesTags: "Post",
     }),
+    getPostsById: builder.query({
+      query: (id) => ({
+        url: `posts/${id}`,
+        providesTags: "Post",
+      }),
+    }),
+    createPost: builder.query({
+      query: (post) => ({
+        url: "/posts/add",
+        method: "POST",
+        post,
+      }),
+      invalidatesTags: "Post",
+    }),
+    deletePost: builder.query({
+      query: (id) => ({
+        url: `/posts/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: "Post",
+    }),
+    // editPost: builder.query({
+    //   query: ( body) => ({
+    //     url: `/posts/edit/${body.id}`,
+
+    //   }),
+    // }),
   }),
 })
 
-// Export hooks for usage in functional components, which are
-// auto-generated based on the defined endpoints
-export const { useGetPostsQuery } = postsApiSlice
+export const {
+  useGetPostsQuery,
+  useGetPostsByIdQuery,
+  useCreatePostQuery,
+  useDeletePostQuery,
+} = postsApiSlice
