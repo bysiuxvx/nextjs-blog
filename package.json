@@ -10,7 +10,6 @@
   ],
   "scripts": {
     "install-js": "cd apps && cd frontend && yarn",
-    "install": "concurrently \"yarn\" \"cd apps && cd frontend && yarn\"",
     "watch-js": "cd apps && cd frontend && yarn dev",
     "watch-node": "cd apps && cd backend && yarn watch",
     "start": "concurrently \"yarn watch-node\" \"yarn watch-js\""
@@ -18,5 +17,8 @@
   "dependencies": {
     "concurrently": "^7.2.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "nx": "14.4.0",
+    "@nrwl/nx-cloud": "latest"
+  }
 }
