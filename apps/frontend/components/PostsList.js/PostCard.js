@@ -2,7 +2,7 @@ import { Box, Button, Heading, Text } from "@chakra-ui/react"
 
 import moment from "moment"
 import "moment/locale/en-gb"
-import { useDeletePostMutation } from "../redux/api/postsApiSlice"
+import { useDeletePostMutation } from "../../redux/api/postsApiSlice"
 
 const PostCard = ({ post }) => {
   moment.locale("en-gb")
