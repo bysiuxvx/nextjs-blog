@@ -1,45 +1,15 @@
 import { Formik } from "formik"
 
-import { Box, Input, Image } from "@chakra-ui/react"
+import { Box, Input, Button } from "@chakra-ui/react"
 import InputField from "./InputField"
-import { useState, useEffect } from "react"
-// import ImageThumbnail from "./ImageThumbnail"
 
-const ImageThumbnail = ({ image }) => {
-  const [loading, setLoading] = useState(false)
-  const [imgData, setImgData] = useState(null)
-
-  useEffect(() => {
-    if (!image) return
-
-    console.log("zmiana")
-    setLoading(true)
-    let reader = new FileReader()
-
-    reader.onloadend = () => {
-      setLoading(false)
-      setImgData(reader.result)
-    }
-    reader.readAsDataURL(image)
-
-    // if (!image) return
-    // //   if (!props.file) return
-    // setLoading(true)
-    // const reader = new FileReader()
-    // reader.addEventListener("load", () => {
-    //   setImgData(reader.result)
-    //   setLoading(false)
-    // })
-    // reader.readAsDataURL(image)
-    // //   reader.readAsDataURL(e.target.files[0])
-  }, [image])
-
-  if (loading) return <div>Loading...</div>
-  if (imgData)
-    return <Image src={imgData} alt="thumbnail" maxH={200} maxW={200} />
-}
+import ImageThumbnail from "./ImageThumbnail"
 
 const CreatePostForm = () => {
+  const handleSubmit = (values, actions) => {
+    console.log(values)
+  }
+
   return (
     <Formik
       initialValues={{
@@ -48,11 +18,12 @@ const CreatePostForm = () => {
         text: "",
         hashtags: [],
         createdBy: "",
-        imageFile: null,
+        imageFile: undefined,
       }}
+      onSubmit={handleSubmit}
     >
       {(formik) => (
-        <Box as="form">
+        <Box as="form" onSubmit={formik.handleSubmit}>
           <InputField
             name="title"
             // type='title'
@@ -79,17 +50,24 @@ const CreatePostForm = () => {
             label={"Author"}
             placeholder="Author"
           />
-          <InputField
-            name="imageFile"
-            label="Image"
-            component="input"
-            accept=".png, .jpg, .jpeg"
+
+          <Input
             type="file"
+            accept=".png, .jpg, .jpeg"
             onChange={(event) => {
-              formik.setFieldValue("file", event.currentTarget.files[0])
+              formik.setFieldValue("imageFile", event.target.files[0])
+              console.log(formik.values)
             }}
           />
           <ImageThumbnail image={formik.values.imageFile} />
+          <Button
+            type="submit"
+            // isLoading={formik.isSubmitting}
+
+            mt={5}
+          >
+            Submit
+          </Button>
         </Box>
       )}
     </Formik>
