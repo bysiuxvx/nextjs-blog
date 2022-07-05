@@ -3,7 +3,7 @@ import { Formik } from "formik"
 import { Box, Input, Button } from "@chakra-ui/react"
 import InputField from "./InputField"
 
-import ImageThumbnail from "./ImageThumbnail"
+import ImagePreview from "./ImagePreview"
 import { useCreatePostMutation } from "../../redux/api/postsApiSlice"
 
 const CreatePostForm = () => {
@@ -71,7 +71,7 @@ const CreatePostForm = () => {
               console.log(formik.values)
             }}
           />
-          <ImageThumbnail image={formik.values.imageFile} />
+          <ImagePreview image={formik.values.imageFile} />
           <Button
             type="submit"
             // isLoading={formik.isSubmitting}
