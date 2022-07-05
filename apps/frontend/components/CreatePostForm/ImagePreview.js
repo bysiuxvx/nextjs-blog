@@ -1,7 +1,7 @@
 import { Image } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 
-const ImageThumbnail = ({ image }) => {
+const ImagePreview = ({ image }) => {
   const [imgData, setImgData] = useState(null)
 
   useEffect(() => {
@@ -13,21 +13,10 @@ const ImageThumbnail = ({ image }) => {
       setImgData(reader.result)
     }
     reader.readAsDataURL(image)
-
-    // if (!image) return
-    // //   if (!props.file) return
-    // setLoading(true)
-    // const reader = new FileReader()
-    // reader.addEventListener("load", () => {
-    //   setImgData(reader.result)
-    //   setLoading(false)
-    // })
-    // reader.readAsDataURL(image)
-    // //   reader.readAsDataURL(e.target.files[0])
   }, [image])
 
   if (imgData)
     return <Image src={imgData} alt="thumbnail" maxH={200} maxW={200} />
 }
 
-export default ImageThumbnail
+export default ImagePreview
