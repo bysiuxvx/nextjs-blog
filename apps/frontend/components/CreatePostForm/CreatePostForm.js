@@ -4,11 +4,19 @@ import { Box, Input, Button } from "@chakra-ui/react"
 import InputField from "./InputField"
 
 import ImageThumbnail from "./ImageThumbnail"
+import { useCreatePostMutation } from "../../redux/api/postsApiSlice"
 
 const CreatePostForm = () => {
+  const [createPost] = useCreatePostMutation()
+
   const handleSubmit = (values, actions) => {
-    console.log(values)
+    createPost(values)
+    actions.resetForm()
   }
+
+  // const handleSubmit = (values, actions) => {
+  //   console.log(values)
+  // }
 
   return (
     <Formik
@@ -18,12 +26,16 @@ const CreatePostForm = () => {
         text: "",
         hashtags: [],
         createdBy: "",
-        imageFile: undefined,
+        image: undefined,
       }}
       onSubmit={handleSubmit}
     >
       {(formik) => (
-        <Box as="form" onSubmit={formik.handleSubmit}>
+        <Box
+          as="form"
+          onSubmit={formik.handleSubmit}
+          encType="multipart/form-data"
+        >
           <InputField
             name="title"
             // type='title'
