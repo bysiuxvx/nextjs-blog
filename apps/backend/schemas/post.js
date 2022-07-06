@@ -14,7 +14,10 @@ const postSchema = new Schema(
       },
     ],
     createdBy: { type: String, required: true },
-    // img:
+    image: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,
