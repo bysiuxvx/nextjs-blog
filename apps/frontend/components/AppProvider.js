@@ -11,7 +11,7 @@ const AppProvider = ({ children }) => {
   return (
     <Provider store={store}>
       <ChakraProvider>
-        <Box>
+        <Box minH="100vh">
           <Navbar />
           <Container>{children}</Container>
           <Footer />
