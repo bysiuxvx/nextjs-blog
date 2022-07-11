@@ -10,23 +10,28 @@ const CreatePostForm = () => {
   const [createPost] = useCreatePostMutation()
 
   const handleSubmit = (values, actions) => {
-    createPost(values)
+    let data = new FormData()
+
+    data.append("title", values.title)
+    data.append("shortDescription", values.shortDescription)
+    data.append("text", values.text)
+    data.append("hashtags", values.hashtags)
+    data.append("createdBy", values.createdBy)
+    data.append("imageFile", values.imageFile)
+
+    createPost(data)
     actions.resetForm()
   }
-
-  // const handleSubmit = (values, actions) => {
-  //   console.log(values)
-  // }
 
   return (
     <Formik
       initialValues={{
-        title: "",
-        shortDescription: "",
-        text: "",
+        title: "New post",
+        shortDescription: "Lorem ipsum dolor sit.",
+        text: "Lorem ipsum dolor sit.",
         hashtags: [],
-        createdBy: "",
-        image: undefined,
+        createdBy: "admin",
+        imageFile: undefined,
       }}
       onSubmit={handleSubmit}
     >
@@ -66,9 +71,9 @@ const CreatePostForm = () => {
           <Input
             type="file"
             accept=".png, .jpg, .jpeg"
+            name="imageFile"
             onChange={(event) => {
               formik.setFieldValue("imageFile", event.target.files[0])
-              console.log(formik.values)
             }}
           />
           <ImagePreview image={formik.values.imageFile} />
