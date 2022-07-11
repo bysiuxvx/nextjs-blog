@@ -20,8 +20,6 @@ export const postsApiSlice = createApi({
       query: (body) => ({
         url: "/posts/add",
         method: "POST",
-        headers: { "Content-Type": `multipart/form-data` },
-
         body,
       }),
       invalidatesTags: ["Post"],
